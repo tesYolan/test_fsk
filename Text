@@ -1,0 +1,22 @@
+
+# Program Aimed at Iterating to each Shape Key to Add A Driver. 
+import bpy
+selectedObj= bpy.context.object
+selectedObjShapeKeys= selectedObj.data.shape_keys
+selectedObjShapeKeysNameArray= selectedObjShapeKeys.key_blocks
+k=0
+for i in py.data.shape_keys['Key.001'].key_blocks.items():
+    driverData= bpy.data.shape_keys['Key.001'].key_blocks[i].driver_add("value",-1)
+    drv= driverData.driver
+    drv.type="SCRIPTED"
+    drv.expression="var*-2/pi"#one can modifiy this to lessen the empact of the specifed driver.
+    var= drv.variables.new()
+    var.name="var"
+    var.type="TRANSFORMS"
+    targ= var.targets[0]
+    # This is where one replaces the one in the bracket with the name of the 
+	# bvh file; 
+    val=bpy.data.objects['Clip 000']
+    targ.id=val        
+    targ.bone_target= i  # Must Set these to Bone
+    targ.transform_type="ROT_Z"
